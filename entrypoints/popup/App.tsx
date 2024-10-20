@@ -1,33 +1,31 @@
-import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
-import wxtLogo from '/wxt.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {/* Header Section */}
+      <div className="flex flex-col items-center p-8 gap-3 bg-white rounded-lg shadow-md">
+        <img
+          src="/wxt.svg"
+          alt=""
+          className="h-10 w-10 bg-black rounded-full shadow-sm"
+        />
+        <h1 className="text-xl font-bold text-gray-800">
+          LinkedIn Message Assistant
+        </h1>
       </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+
+      {/* Content Section */}
+      <div className="max-w-md mx-auto px-6">
+        <p className="text-base font-semibold text-gray-700 mb-2 text-center">
+          Welcome to the LinkedIn Message Assistant
+        </p>
+        <p className="text-sm text-gray-600 text-center leading-relaxed">
+          This extension helps you generate replies for your LinkedIn messages
+          quickly. Write the prompt, and we will assist you in crafting a
+          response.
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
-      </p>
     </>
   );
 }

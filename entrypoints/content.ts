@@ -176,42 +176,35 @@ export default defineContentScript({
         // Remove aria-label to avoid any screen reader issues
         parentElement.removeAttribute("aria-label");
 
+        // Remove any placeholder-like text in the contenteditable area
+        const placeholderElement = parentElement.querySelector(
+          ".msg-form__placeholder"
+        );
+        if (placeholderElement) {
+          placeholderElement.remove(); // Remove LinkedIn's placeholder text if it's present
+        }
+
         // Find or create a <p> tag inside the contenteditable area
         let existingParagraph = parentElement.querySelector("p");
 
+        // If no <p> tag is present, create one
         if (!existingParagraph) {
           existingParagraph = document.createElement("p");
           parentElement.appendChild(existingParagraph);
         }
 
-        // Clear and insert the new message
-        existingParagraph.textContent = lastGeneratedMessage;
+        // Clear the content before inserting the new message
+        existingParagraph.textContent = ""; // Clear the existing content
+        existingParagraph.textContent = lastGeneratedMessage; // Insert the generated message
 
-        // Hide the insert button and close the modal
+        // Dispatch an 'input' event to mimic user typing, which can trigger LinkedIn's placeholder removal
+        const inputEvent = new Event("input", { bubbles: true });
+        parentElement.dispatchEvent(inputEvent);
+
+        // Hide the insert button
+
         insertBtn.style.display = "none";
-        modal.style.display = "none";
-      }
-    });
-
-    // Ensure focus is maintained on the message input area while interacting with the modal inputs
-    const inputElements = [inputText, generateBtn, insertBtn];
-    inputElements.forEach((element) => {
-      element.addEventListener("focus", () => {
-        if (parentElement) {
-          parentElement.setAttribute("data-artdeco-is-focused", "true");
-        }
-      });
-    });
-
-    // Close the modal if the user clicks outside of it
-    document.addEventListener("click", (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        modal.style.display === "flex" &&
-        !modal.contains(target) &&
-        !target.classList.contains("edit-icon")
-      ) {
-        modal.style.display = "none";
+        modal.style.display = "none"; // Close the modal
       }
     });
   },

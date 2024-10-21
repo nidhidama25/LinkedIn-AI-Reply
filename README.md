@@ -1,3 +1,8 @@
+
+
+
+https://github.com/user-attachments/assets/68610efc-30d8-4f28-8d86-25b86dd9f703
+
 LinkedIn Auto-Reply Chrome Extension
 
 Objective-
